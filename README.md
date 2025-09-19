@@ -5,7 +5,7 @@ Proyecto REST para gestión de usuarios, vehículos y citas, pensado para aprend
 ## Tecnologías
 - Java 17
 - Spring Boot 3.2.9 (Web, Data JPA, Security)
-- JPA/Hibernate (MariaDB en runtime, H2 en tests)
+- JPA/Hibernate (MySQL en runtime, H2 en tests)
 - JWT (jjwt 0.12.x)
 - Swagger/OpenAPI (springdoc 2.6.0)
 - JUnit 5, Mockito, JaCoCo
@@ -25,8 +25,8 @@ Proyecto REST para gestión de usuarios, vehículos y citas, pensado para aprend
 Archivo: `src/main/resources/application.properties`
 
 - Puerto: `server.port=9999`
-- Base de datos (MariaDB por defecto):
-  - `spring.datasource.url=jdbc:mariadb://localhost:3306/citas`
+- Base de datos (MySQL por defecto):
+  - `spring.datasource.url=jdbc:mysql://localhost:3306/citas`
   - `spring.datasource.username=root`
   - `spring.datasource.password=123`
   - `spring.jpa.hibernate.ddl-auto=update`
@@ -38,7 +38,7 @@ Puedes sobrescribir cualquier propiedad con variables de entorno (estándar de S
 - Ejemplo (Mac/Linux): `export SECURITY_JWT_SECRET=$(openssl rand -base64 32)`
 
 ## Ejecución
-1) Arranca MariaDB y crea la BD `citas` (si no existe).
+1) Arranca MySQL y crea la BD `citas` (si no existe).
 2) Ajusta credenciales en `application.properties` o variables de entorno.
 3) Compila y ejecuta:
    - `mvn clean spring-boot:run`
