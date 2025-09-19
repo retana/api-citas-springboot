@@ -45,6 +45,20 @@ Puedes sobrescribir cualquier propiedad con variables de entorno (estándar de S
 4) Documentación Swagger UI:
    - `http://localhost:9999/swagger-ui.html`
 
+## Despliegue en Railway
+- Añade un servicio MySQL en Railway y conéctalo a tu proyecto.
+- Variables de entorno esperadas (Railway las expone automáticamente con el plugin MySQL):
+  - `MYSQLHOST`, `MYSQLPORT`, `MYSQLUSER`, `MYSQLPASSWORD`, `MYSQLDATABASE` (ó `SPRING_DATASOURCE_URL`/`USERNAME`/`PASSWORD` si usas una cadena directa)
+  - `SECURITY_JWT_SECRET` (proporciona un valor seguro)
+- El proyecto incluye:
+  - `src/main/resources/application-prod.properties` con configuración basada en env vars.
+  - `Procfile` con comando de arranque: `web: java -Dspring.profiles.active=prod -Dserver.port=$PORT -jar target/citas-0.0.1-SNAPSHOT.jar`.
+- Pasos:
+  1) Conecta tu repo a Railway.
+  2) Crea el servicio MySQL y linkéalo a la app.
+  3) En Variables, verifica que existan `MYSQL*` y añade `SECURITY_JWT_SECRET`.
+  4) Deploy. El build usa Maven (wrapper incluido) y el runtime leerá `PORT`/`MYSQL*`.
+
 ## Autenticación (JWT)
 - Registro: `POST /auth/register`
   - Crea usuario con rol por defecto `USER`. Contraseña se guarda con BCrypt (nunca se expone en respuestas JSON).
