@@ -59,6 +59,18 @@ Puedes sobrescribir cualquier propiedad con variables de entorno (estándar de S
   3) En Variables, verifica que existan `MYSQL*` y añade `SECURITY_JWT_SECRET`.
   4) Deploy. El build usa Maven (wrapper incluido) y el runtime leerá `PORT`/`MYSQL*`.
 
+## Docker
+- Build de la imagen:
+  - `docker build -t citas-app .`
+- Ejecutar localmente (mapea 8080->8080):
+  - `docker run --rm -p 8080:8080 -e PORT=8080 -e SPRING_PROFILES_ACTIVE=prod -e MYSQLHOST=localhost -e MYSQLPORT=3306 -e MYSQLDATABASE=citas -e MYSQLUSER=root -e MYSQLPASSWORD=123 -e SECURITY_JWT_SECRET=$(openssl rand -base64 32) citas-app`
+- Variables importantes:
+  - `PORT`: el puerto interno del contenedor (por defecto 8080). La app queda en `http://localhost:8080`.
+  - `SPRING_PROFILES_ACTIVE`: `prod` usa `application-prod.properties` (lee `MYSQL*` o `SPRING_DATASOURCE_*`).
+  - `MYSQLHOST`, `MYSQLPORT`, `MYSQLDATABASE`, `MYSQLUSER`, `MYSQLPASSWORD`: conexión MySQL.
+  - Alternativa: `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, `SPRING_DATASOURCE_PASSWORD`.
+
+
 ## Autenticación (JWT)
 - Registro: `POST /auth/register`
   - Crea usuario con rol por defecto `USER`. Contraseña se guarda con BCrypt (nunca se expone en respuestas JSON).

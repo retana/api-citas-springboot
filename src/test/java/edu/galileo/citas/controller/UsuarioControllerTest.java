@@ -15,7 +15,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import edu.galileo.citas.model.Usuario;
+import edu.galileo.citas.security.JwtAuthenticationFilter;
 import edu.galileo.citas.service.UsuarioService;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 @WebMvcTest(UsuarioController.class)
 @AutoConfigureMockMvc(addFilters = false)
@@ -26,6 +28,12 @@ class UsuarioControllerTest {
 
     @MockBean
     UsuarioService usuarioService;
+
+    // Mock security dependencies to let WebMvcTest load context
+    @MockBean
+    JwtAuthenticationFilter jwtAuthenticationFilter;
+    @MockBean
+    UserDetailsService userDetailsService;
 
     @Test
     void list_ReturnsOk() throws Exception {

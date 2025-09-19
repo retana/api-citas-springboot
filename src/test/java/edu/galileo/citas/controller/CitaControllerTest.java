@@ -17,6 +17,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import edu.galileo.citas.model.Cita;
 import edu.galileo.citas.model.repository.CitaRepository;
 import edu.galileo.citas.service.CitaService;
+import edu.galileo.citas.security.JwtAuthenticationFilter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 @WebMvcTest(CitaController.class)
 @AutoConfigureMockMvc(addFilters = false)
@@ -27,6 +29,8 @@ class CitaControllerTest {
 
     @MockBean CitaService citaService;
     @MockBean CitaRepository citaRepository;
+    @MockBean JwtAuthenticationFilter jwtAuthenticationFilter;
+    @MockBean UserDetailsService userDetailsService;
 
     @Test
     void list_ReturnsOk() throws Exception {

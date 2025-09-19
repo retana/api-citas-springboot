@@ -17,6 +17,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import edu.galileo.citas.model.Vehiculo;
 import edu.galileo.citas.model.repository.VehiculoRepository;
 import edu.galileo.citas.service.VehiculoService;
+import edu.galileo.citas.security.JwtAuthenticationFilter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 @WebMvcTest(VehiculoController.class)
 @AutoConfigureMockMvc(addFilters = false)
@@ -27,6 +29,8 @@ class VehiculoControllerTest {
 
     @MockBean VehiculoService vehiculoService;
     @MockBean VehiculoRepository vehiculoRepository;
+    @MockBean JwtAuthenticationFilter jwtAuthenticationFilter;
+    @MockBean UserDetailsService userDetailsService;
 
     @Test
     void list_ReturnsOk() throws Exception {
